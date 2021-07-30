@@ -1,23 +1,21 @@
 /*___________POST le frontend envoie les données vers le backend création de l'objet
 méthode next permet à chaque middleware de passer l'exécution au middleware suivant
 mot-clé new avec un modèle Mongoose crée par défaut un champ_id
-créer une instance du modèle Sauce________méthode save renvoie une Promise
+méthode save renvoie une Promise
 opérateur spread ... est utilisé pour faire une copie de tous les éléments de req.body
 remplacer la route de base d'enregistrement du routeur '/api/sauces' par '/'______________*/
-//______________________Logique métier de la route POST vers contrôleur des sauces pour chaque crud
+//______________________Logique métier de nos routes des sauces pour chaque crud
 //Import modèle sauce Mongoose 
 const Sauce = require("../models/sauce");
 const fs = require('fs');
 
-/*logique de notre route POST en tant que fonction appelée creerSauce
-ajouter un fichier à la requête, le front-end envoie les données de la requête sous la forme form-data, et non sous forme de JSON
+/* ajouter un fichier à la requête, le front-end envoie les données de la requête sous la forme form-data, et non sous forme de JSON
 analyser à l'aide de JSON.parse() pour obtenir un objet utilisable.
 résoudre l'URL complète de notre image. utilisons req.protocol
 le premier segment (dans notre cas 'http' ). ajouter '://' , puis utiliser req.get('host') pour résoudre l'hôte du serveur (ici, 'localhost:3000' ).
-ajouter '/images/' et le nom de fichier
-*/
-// Permet de créer une nouvelle sauce
+ajouter '/images/' et le nom de fichier  */
 
+// fonction appelée creerSauce Permet de créer une nouvelle sauce
 exports.createSauce = (req, res, next) => {
   // données envoyées par le front-end
   const sauceObject = JSON.parse(req.body.sauce);

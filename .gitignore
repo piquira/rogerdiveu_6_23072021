@@ -1,1 +1,4 @@
 /node_modules
+
+# dotenv environment des variables de configurations secrètes
+.env

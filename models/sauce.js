@@ -1,7 +1,7 @@
 //import mongoose
 const mongoose = require('mongoose');
 
-// schéma de données qui contient les champs souhaités pour chaque Thing / sauce
+// schéma de données qui contient les champs souhaités pour chaque sauce
 //id de la sauce pas besoin d'un champs il est généré par Mongoose
 //id unique mongoDB de l'utilisateur
 const sauceSchema = mongoose.Schema({
