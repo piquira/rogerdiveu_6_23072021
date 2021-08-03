@@ -8,7 +8,6 @@ const User = require('../models/User');
 fonction asynchrone qui renvoie une Promise qui nous renvoie le hash généré
 bloc then créer un utilisateur et enregistrer dans la base de données, renvoie une réponse de réussite en cas de succès */
 exports.signup = (req, res, next) => {
-    console.log(req.body);
     bcrypt.genSalt(10).then((salt) => {
         bcrypt.hash(req.body.password, salt)
         .then(hash => {
@@ -21,12 +20,10 @@ exports.signup = (req, res, next) => {
             .catch(error => res.status(400).json({ error }));
         })
         .catch((error) => {
-            console.log(error);
             res.status(500).json({ error })
         });
     })
     .catch((error) => {
-        console.log(error);
         res.status(500).json({ error })
     });
   };
@@ -35,7 +32,7 @@ exports.signup = (req, res, next) => {
 modèle Mongoose vérifie que l'e-mail entré par l'utilisateur correspond à un utilisateur existant de la base
 fonction compare debcrypt pour comparer le mot de passe entré par l'utilisateur avec le hash enregistré dans la base 
 fonction sign dejsonwebtoken pour encoder un token contient l'ID de l'utilisateur 
-chaîne secrète de développement temporaire RANDOM_SECRET_KEY pour encoder notre token (à remplacer en prod.)  
+chaîne secrète de développement temporaire ".........." pour encoder notre token (à remplacer en prod.)  
 durée de validité du token à 24 heures. nous renvoyons une réponse 200 contenant l'ID utilisateur */
 exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email })
@@ -58,7 +55,6 @@ exports.login = (req, res, next) => {
           });
       })
       .catch((error) => {
-          console.log(error);
           res.status(500).json({ error})
       });
   })

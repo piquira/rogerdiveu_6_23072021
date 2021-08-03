@@ -2,11 +2,11 @@
 //Import
 const express = require('express');
 const mongoose = require('mongoose');
-//importation du fichier des routes sauces
+//import du fichier des routes sauces
 const saucesRoutes = require ('./routes/sauces');
-//importation du fichier des routes utilisateur
+//import du fichier des routes utilisateur
 const userRoutes = require('./routes/user');
-//importation du fichier des routes import d'images
+//traiter les requêtes vers la route /image , en rendant notre dossier images statique
 const path = require('path');
 //Import de helmet pour la sécurité contre les injections
 const helmet = require("helmet");
@@ -41,7 +41,7 @@ app.use((req, res, next) => {
 //sécurité contre les injections
 app.use(helmet());
 //Nettoyage des données par rapport à XSS - empêcher les utilisateurs d’insérer html et scripts sur l’entrée - vient avant tout itinéraire
-app.use(xss())
+app.use(xss());
 
 /*gérer la ressource images de manière statique (un sous-répertoire de notre répertoire de base, __dirname
  chaque fois qu'elle reçoit une requête vers la route /images ______________*/

@@ -1,15 +1,15 @@
+//______________________Logique métier de nos routes des sauces pour chaque crud
+
+//Import modèle sauce Mongoose 
+const Sauce = require("../models/sauce");
+//fs « système de fichiers » donne accès aux fonctions pour modifier le système de fichiers, y compris pour supprimer les fichiers.
+const fs = require('fs');
+
 /*___________POST le frontend envoie les données vers le backend création de l'objet
-méthode next permet à chaque middleware de passer l'exécution au middleware suivant
 mot-clé new avec un modèle Mongoose crée par défaut un champ_id
 méthode save renvoie une Promise
 opérateur spread ... est utilisé pour faire une copie de tous les éléments de req.body
-remplacer la route de base d'enregistrement du routeur '/api/sauces' par '/'______________*/
-//______________________Logique métier de nos routes des sauces pour chaque crud
-//Import modèle sauce Mongoose 
-const Sauce = require("../models/sauce");
-const fs = require('fs');
-
-/* ajouter un fichier à la requête, le front-end envoie les données de la requête sous la forme form-data, et non sous forme de JSON
+ajouter un fichier à la requête, le front-end envoie les données de la requête sous la forme form-data, et non sous forme de JSON
 analyser à l'aide de JSON.parse() pour obtenir un objet utilisable.
 résoudre l'URL complète de notre image. utilisons req.protocol
 le premier segment (dans notre cas 'http' ). ajouter '://' , puis utiliser req.get('host') pour résoudre l'hôte du serveur (ici, 'localhost:3000' ).
@@ -38,8 +38,8 @@ exports.createSauce = (req, res, next) => {
   };
 
 //Route requêtes PUT pour modifier l'objet
-//méthode updateOne() dans notre modèle Thing . Pour mettre à jour le Thing correspondant à l'objet passé en premier argument. 
-//Utiliser le paramètre id passé dans la demande et le remplacer par le Thing passé comme second argument.
+//méthode updateOne() dans notre modèle Sauce . Pour mettre à jour le Sauce correspondant à l'objet passé en premier argument. 
+//Utiliser le paramètre id passé dans la demande et le remplacer par le Sauce passé comme second argument.
 exports.modifySauce = (req, res, next) => {                                  
   const sauceObject = req.file ?
     {// Operateur Spread "..." utilisé pour faire une copie de tout les elemts de req.body
@@ -101,7 +101,7 @@ exports.likeDislike = (req, res, next) => {
             $push: { usersLiked: userId },
             $inc: { likes: +1 },
         })
-          .then(() => res.status(200).json({ message: ' jaime !'}))
+          .then(() => res.status(200).json({ message: 'J\'aime !'}))
           .catch(error => res.status(400).json({ error }));
     }
   if (like === -1) { // si j'aime pas
@@ -110,7 +110,7 @@ exports.likeDislike = (req, res, next) => {
             $push: { usersDisliked: userId },
             $inc: { dislikes: +1 },
         })
-          .then(() => res.status(200).json({ message: 'jaime pas !'}))
+          .then(() => res.status(200).json({ message: 'J\'aime pas !'}))
           .catch(error => res.status(400).json({ error }));
   }
   if (like === 0) { // Si annuler un j'aime ou un j'aime pas
@@ -122,7 +122,7 @@ exports.likeDislike = (req, res, next) => {
                     $pull: { usersLiked: userId },
                     $inc: { likes: -1 },
                 })
-                  .then(() => res.status(200).json({ message: ' neutre !'}))
+                  .then(() => res.status(200).json({ message: ' aucun avis'}))
                   .catch(error => res.status(400).json({ error }));
     }
     if (sauce.usersDisliked.includes(userId)) { // Si annuler un j'aime pas
@@ -131,7 +131,7 @@ exports.likeDislike = (req, res, next) => {
                     $pull: { usersDisliked: userId },
                     $inc: { dislikes: -1 },
                   })
-                  .then(() => res.status(200).json({ message: 'neutre !'}))
+                  .then(() => res.status(200).json({ message: 'aucun avis'}))
                   .catch(error => res.status(400).json({ error }));
     }
       }).catch((error) => res.status(404).json({ error }));
